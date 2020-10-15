@@ -1,10 +1,18 @@
 package net.reserv.models;
 
-import javax.persistence.Id;
+import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+@Entity
 public class Caracteristic {
 
 	@Id
+	
+	@ManyToMany
+	Set<Type>Posseder;
 
 	private int id_caract;
 	private String label;
