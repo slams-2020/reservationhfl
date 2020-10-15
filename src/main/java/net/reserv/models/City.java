@@ -1,15 +1,24 @@
 package net.reserv.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class City {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 
 	private int id_city;
 	private String cp;
 	private String cityname;
 
+	@ManyToOne
+	private Location Location;
+	
 	public int getId_city() {
 		return id_city;
 	}
