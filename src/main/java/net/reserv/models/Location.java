@@ -1,15 +1,24 @@
 package net.reserv.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class Location {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id_location;
 
 	private String gps;
 	private String address1;
 	private String address2;
+	
+	@ManyToOne
+	private Product Product;
 
 	public int getId_location() {
 		return id_location;
