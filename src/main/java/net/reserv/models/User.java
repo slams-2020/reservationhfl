@@ -1,18 +1,28 @@
 package net.reserv.models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class User {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id_user;
 	private String email;
 	private String password;
 	private String firstname;
 	private String lastname;
 
+	@ManyToOne
+	private Product Product;
+	
+	@ManyToOne
+	private Reservation Reservation;
+	
 	public int getId_user() {
 		return id_user;
 	}
