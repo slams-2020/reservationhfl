@@ -1,8 +1,10 @@
 package net.reserv.models;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
@@ -10,9 +12,10 @@ import javax.persistence.ManyToMany;
 public class Caracteristic {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	
-	@ManyToMany
-	Set<Type>Posseder;
+	@ManyToMany(mappedBy="Caracteristic")
+    private List<Product> caracteristicProduct;
 
 	private int id_caract;
 	private String label;
