@@ -1,14 +1,28 @@
 package net.reserv.models;
 
-import javax.persistence.Id;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+@Entity
 public class Reservation {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	
 	private int id_resev;
 	private String price;
 	private String startDate;
 	private String endDate;
+	
+	@ManyToMany
+    @JoinTable(name = "Service")
+    private List<Service> serviceReservation;
 
 	public int getId_resev() {
 		return id_resev;
