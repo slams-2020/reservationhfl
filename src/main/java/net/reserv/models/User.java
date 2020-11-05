@@ -1,66 +1,59 @@
 package net.reserv.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.management.relation.Role;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-@Entity
-public class User {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id_user;
-	private String email;
-	private String password;
-	private String firstname;
-	private String lastname;
 
-	@ManyToOne
-	private Product Product;
-	
-	@ManyToOne
-	private Reservation Reservation;
-	
-	public int getId_user() {
-		return id_user;
-	}
+	@Entity
+	@Table(	name = "users", 
+			uniqueConstraints = { 
+				@UniqueConstraint(columnNames = "username"),
+				@UniqueConstraint(columnNames = "email") 
+			})
+	public class User {
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		private Long id;
 
-	public void setId_user(int id_user) {
-		this.id_user = id_user;
-	}
+		@NotBlank
+		@Size(max = 20)
+		private String username;
 
-	public String getEmail() {
-		return email;
-	}
+		@NotBlank
+		@Size(max = 50)
+		@Email
+		private String email;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+		@NotBlank
+		@Size(max = 120)
+		private String password;
 
-	public String getPassword() {
-		return password;
-	}
+		@ManyToMany(fetch = FetchType.LAZY)
+		@JoinTable(	name = "user_roles", 
+					joinColumns = @JoinColumn(name = "user_id"), 
+					inverseJoinColumns = @JoinColumn(name = "role_id"))
+		private Set<Role> roles = new HashSet<>();
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+		public User() {
+		}
 
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
+		public User(String username, String email, String password) {
+			this.username = username;
+			this.email = email;
+			this.password = password;
+		}
 
 }
