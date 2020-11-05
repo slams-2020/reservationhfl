@@ -1,22 +1,20 @@
 package net.reserv.repository.java;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+
 import net.reserv.models.User;
 
-@EnableJpaRepositories
 public interface UserRepository extends JpaRepository<User, Integer> {
+	Optional<User> findByUsername(String username);
 
-	List<User> findByid_name(int id_user);
+	Boolean existsByUsername(String username);
 
-	List<User> findByemail(String email);
-
-	List<User> findBypassword(String password);
-
-	List<User> findByfistname(String firstname);
-
-	List<User> findBylastname(String lastname);
+	Boolean existsByEmail(String email);
 }
+
+
